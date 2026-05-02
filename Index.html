@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gnaneswari Kaki | QA Test Manager & AI Automation Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #020b18;
+    --blue-dark: #041428;
+    --blue-mid: #0a2a50;
+    --blue-glow: #0d6efd;
+    --blue-bright: #2196f3;
+    --blue-electric: #00b4ff;
+    --silver-light: #c8d6e8;
+    --silver-mid: #8fa8c8;
+    --silver-dark: #4a6080;
+    --gold-accent: #7eb8f7;
+    --glitter1: #e0f0ff;
+    --glitter2: #a8d4ff;
+    --text-primary: #e8f4ff;
+    --text-secondary: #9bc0e0;
+    --card-bg: rgba(10, 30, 60, 0.7);
+    --card-border: rgba(0, 180, 255, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--blue-deep);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ====== ROBOTIC CIRCUIT CANVAS BACKGROUND ====== */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ====== GLITTER PARTICLES ====== */
+  .glitter-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .glitter-dot {
+    position: absolute;
+    border-radius: 50%;
+    animation: glitterPulse var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+    background: var(--glitter1);
+    box-shadow: 0 0 6px 2px var(--glitter2);
+  }
+
+  @keyframes glitterPulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* ====== NAV ====== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(2, 11, 24, 0.9);
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    backdrop-filter: blur(12px);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue-electric);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px var(--blue-electric);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--silver-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue-electric); }
+
+  /* ====== MAIN CONTENT WRAPPER ====== */
+  main {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ====== HERO SECTION ====== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 2rem 4rem;
+    position: relative;
+  }
+
+  .hero-inner { max-width: 900px; }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--blue-electric);
+    border: 1px solid var(--blue-electric);
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.15em;
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(0,180,255,0.4); }
+    50% { box-shadow: 0 0 20px rgba(0,180,255,0.8); }
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 40px rgba(0,180,255,0.5);
+  }
+
+  .hero-name .highlight {
+    color: var(--blue-electric);
+    text-shadow: 0 0 30px var(--blue-electric);
+  }
+
+  .hero-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 600;
+    color: var(--silver-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-certs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .cert-badge {
+    background: rgba(0, 100, 180, 0.2);
+    border: 1px solid rgba(0, 180, 255, 0.4);
+    color: var(--glitter1);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    transition: all 0.2s;
+  }
+
+  .cert-badge:hover {
+    background: rgba(0, 180, 255, 0.2);
+    border-color: var(--blue-electric);
+    box-shadow: 0 0 12px rgba(0,180,255,0.3);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    position: relative;
+  }
+
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--blue-electric);
+    display: block;
+    text-shadow: 0 0 20px rgba(0,180,255,0.6);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--silver-mid);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, #0d6efd, #0099cc);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(13, 110, 253, 0.4);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 40px rgba(0, 180, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--blue-electric);
+    border: 1px solid var(--blue-electric);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0, 180, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+  }
+
+  /* ====== SCANNING LINE EFFECT ====== */
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-electric), transparent);
+    animation: scanDown 5s linear infinite;
+    opacity: 0.4;
+  }
+
+  @keyframes scanDown {
+    0% { top: 0; }
+    100% { top: 100%; }
+  }
+
+  /* ====== SECTIONS ====== */
+  section {
+    position: relative;
+    padding: 6rem 2rem;
+  }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue-electric);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue-electric), transparent);
+    margin-bottom: 3rem;
+  }
+
+  /* ====== ABOUT SECTION ====== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--silver-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .contact-icon {
+    width: 32px; height: 32px;
+    background: rgba(0, 100, 200, 0.25);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    color: var(--blue-electric);
+    flex-shrink: 0;
+  }
+
+  .contact-row a { color: var(--blue-electric); text-decoration: none; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .skill-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1rem;
+  }
+
+  .skill-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--silver-light);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .skill-bar-bg {
+    background: rgba(255,255,255,0.07);
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0d6efd, var(--blue-electric));
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--blue-electric);
+    animation: fillBar 1.5s ease forwards;
+    width: 0;
+  }
+
+  @keyframes fillBar {
+    to { width: var(--pct, 80%); }
+  }
+
+  /* ====== EXPERIENCE SECTION ====== */
+  .exp-bg { background: rgba(4, 20, 40, 0.5); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--blue-electric), transparent);
+  }
+
+  .exp-item {
+    position: relative;
+    padding: 0 0 3rem 2rem;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -0.45rem;
+    top: 0.5rem;
+    width: 10px; height: 10px;
+    background: var(--blue-electric);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--blue-electric);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .exp-company {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue-electric);
+  }
+
+  .exp-date {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--silver-dark);
+    background: rgba(0, 100, 200, 0.15);
+    border: 1px solid rgba(0, 100, 200, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .exp-role {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--silver-light);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .exp-project {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--silver-dark);
+    margin-bottom: 0.8rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .exp-bullets li {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--blue-electric);
+    font-weight: 700;
+  }
+
+  .exp-highlight {
+    color: var(--glitter1);
+    font-weight: 600;
+  }
+
+  /* ====== ACHIEVEMENTS SECTION ====== */
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .achieve-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .achieve-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 100, 200, 0.3);
+    border-color: rgba(0, 180, 255, 0.5);
+  }
+
+  .achieve-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-electric), transparent);
+  }
+
+  .achieve-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .achieve-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--blue-electric);
+    text-shadow: 0 0 20px rgba(0,180,255,0.5);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .achieve-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ====== TECH SKILLS ====== */
+  .tech-bg { background: rgba(2, 8, 20, 0.6); }
+
+  .tech-cats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tech-cat {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+
+  .tech-cat-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue-electric);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,180,255,0.2);
+    padding-bottom: 0.5rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    background: rgba(0, 80, 160, 0.2);
+    border: 1px solid rgba(0, 140, 220, 0.25);
+    color: var(--silver-light);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ====== AI SECTION ====== */
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ai-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at bottom right, rgba(0,180,255,0.08), transparent);
+  }
+
+  .ai-card-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, rgba(13,110,253,0.3), rgba(0,180,255,0.15));
+    border: 1px solid rgba(0,180,255,0.4);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .ai-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-card p {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* ====== EDUCATION ====== */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 1.8rem;
+  }
+
+  .edu-deg {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue-electric);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-uni {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-year {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--silver-dark);
+  }
+
+  /* ====== CONTACT SECTION ====== */
+  .contact-bg { background: rgba(4, 20, 40, 0.5); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .contact-info p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .contact-item a {
+    color: var(--blue-electric);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover { text-decoration: underline; }
+
+  .ci-icon {
+    width: 40px; height: 40px;
+    background: rgba(0, 100, 200, 0.2);
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 2rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-group label {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue-electric);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(0, 20, 50, 0.6);
+    border: 1px solid rgba(0, 100, 200, 0.3);
+    border-radius: 2px;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue-electric);
+    box-shadow: 0 0 12px rgba(0,180,255,0.15);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    position: relative;
+    z-index: 10;
+    background: var(--blue-deep);
+    border-top: 1px solid rgba(0, 100, 200, 0.25);
+    padding: 2rem;
+    text-align: center;
+    color: var(--silver-dark);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .about-grid, .contact-grid, .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.75rem; }
+    .hero-stats { gap: 1.5rem; }
+    section { padding: 4rem 1rem; }
+  }
+
+  /* ====== SCROLL REVEAL ====== */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ====== HEX GRID OVERLAY ====== */
+  .hex-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpolygon points='30,2 58,17 58,47 30,62 2,47 2,17' fill='none' stroke='%230099ff' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 104px;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="hex-overlay"></div>
+<div class="glitter-container" id="glitter-container"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GK // QA-LEAD</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#ai">AI Expertise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="scan-line"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">// INITIALIZING PROFILE... GNANESWARI_KAKI.EXE //</div>
+    <h1 class="hero-name">
+      GNANESWARI <span class="highlight">KAKI</span>
+    </h1>
+    <p class="hero-title">QA Test Manager &nbsp;·&nbsp; AI &amp; Automation Leader</p>
+    <p class="hero-subtitle">
+      15+ years of progressive leadership in quality engineering across financial services, banking, insurance, and telecom — building AI-augmented automation practices that measurably raise the quality bar.
+    </p>
+    <div class="hero-certs">
+      <span class="cert-badge">ISTQB Certified</span>
+      <span class="cert-badge">TOSCA AS1 &amp; AS2</span>
+      <span class="cert-badge">Datadog Certified</span>
+      <span class="cert-badge">Azure Certified</span>
+      <span class="cert-badge">AWS Certified</span>
+      <span class="cert-badge">AWS Solutions Architect</span>
+      <span class="cert-badge">AI / ML Certified</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">15+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">60%</span>
+        <span class="stat-label">Faster Execution</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">25%</span>
+        <span class="stat-label">Defect Leakage ↓</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">40%</span>
+        <span class="stat-label">Efficiency Gain</span>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <span class="section-label">// 01 — PROFILE</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-divider"></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Accomplished QA Test Manager with 15+ years of progressive leadership in quality engineering across financial services, banking, insurance, and telecom sectors. A trusted Test Manager known for owning full QA program delivery — from test strategy definition and team building to release sign-off and executive reporting.
+        </p>
+        <p>
+          Expert at establishing scalable, AI-augmented automation practices using Playwright (TypeScript/C#), Selenium WebDriver, TOSCA, and GitHub Copilot. Hands-on expertise in AI/ML model testing, generative AI output validation, bias detection, MFA/SSO/OAuth compliance testing, and cloud-native AWS test environments.
+        </p>
+        <div class="about-contact">
+          <div class="contact-row">
+            <div class="contact-icon">📍</div>
+            <span>Prospect Heights, IL 60070</span>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">📞</div>
+            <span>+1 517-505-4073</span>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">✉️</div>
+            <a href="mailto:gnaneemummareddy3@gmail.com">gnaneemummareddy3@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">🔗</div>
+            <a href="https://linkedin.com/in/gnanee-k-48b07b251" target="_blank">linkedin.com/in/gnanee-k-48b07b251</a>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay: 0.15s">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-name">Playwright / TS</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 97%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Selenium WebDriver</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">GitHub Copilot AI</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 92%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">CI/CD Pipelines</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">AWS Cloud Testing</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">Team Leadership</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 99%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">TOSCA AS1/AS2</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 91%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-name">AI/ML Testing</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="--pct: 89%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section style="padding: 3rem 2rem;">
+  <div class="section-inner">
+    <div class="achieve-grid">
+      <div class="achieve-card reveal">
+        <span class="achieve-icon">⚡</span>
+        <span class="achieve-num">40–60%</span>
+        <span class="achieve-desc">Faster Test Execution via Playwright</span>
+      </div>
+      <div class="achieve-card reveal" style="transition-delay:0.1s">
+        <span class="achieve-icon">🎯</span>
+        <span class="achieve-num">25%</span>
+        <span class="achieve-desc">Reduction in Production Defect Leakage</span>
+      </div>
+      <div class="achieve-card reveal" style="transition-delay:0.2s">
+        <span class="achieve-icon">🤖</span>
+        <span class="achieve-num">30%</span>
+        <span class="achieve-desc">Faster Test Creation via GitHub Copilot</span>
+      </div>
+      <div class="achieve-card reveal" style="transition-delay:0.3s">
+        <span class="achieve-icon">📈</span>
+        <span class="achieve-num">40%</span>
+        <span class="achieve-desc">Execution Efficiency via qTest Integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-bg">
+  <div class="section-inner">
+    <span class="section-label">// 02 — CAREER LOG</span>
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="section-divider"></div>
+    <div class="timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-company">BECU — Boeing Employees Credit Union</div>
+          <span class="exp-date">SEP 2025 – PRESENT</span>
+        </div>
+        <div class="exp-role">QA Test Manager / SDET</div>
+        <div class="exp-project">PROJECT: SMDO – Credit Card Digital Onboarding | Platform: Backbase, Prove Prefill, Alloy SDK | Azure ADO</div>
+        <ul class="exp-bullets">
+          <li>Serve as QA Test Manager overseeing end-to-end test strategy, planning, and execution, managing <span class="exp-highlight">6 QA engineers</span> across onshore and offshore locations.</li>
+          <li>Architected Playwright + TypeScript automation framework, delivering <span class="exp-highlight">40–60% faster test execution</span> with built-in auto-waits eliminating race conditions.</li>
+          <li>Defined AI-augmented testing practices using <span class="exp-highlight">GitHub Copilot</span>, reducing test creation time by ~30% per sprint.</li>
+          <li>Led testing of SMS identity verification, MFA/SSO/OAuth flows, link expiration, session timeout, and PII data handling for financial regulatory compliance.</li>
+          <li>Championed ethical AI testing practices: bias detection, fairness evaluation, and compliance with financial industry ethical standards.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-company">Citizens Bank</div>
+          <span class="exp-date">FEB 2022 – SEP 2025</span>
+        </div>
+        <div class="exp-role">QA Test Manager / SDET</div>
+        <div class="exp-project">PROJECT: Mortgage Accounting API – On-Premise to AWS Cloud Migration | JIRA</div>
+        <ul class="exp-bullets">
+          <li>Led QA Test Manager for large-scale mortgage cloud migration from on-premise to AWS, overseeing all test phases from strategy through UAT sign-off.</li>
+          <li>Integrated GitHub Copilot into automation workflows, improving test coverage quality by <span class="exp-highlight">35%</span>.</li>
+          <li>Implemented <span class="exp-highlight">TMMi best practices</span>, achieving 25% reduction in defect leakage to production.</li>
+          <li>Drove performance and load testing using JMeter, K6, and NeoLoad; identified critical bottlenecks before production deployment.</li>
+          <li>Managed offshore QA resource coordination across geographic locations, balancing workloads and timelines.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-company">Discover Financial Services (DFS)</div>
+          <span class="exp-date">JAN 2021 – JAN 2022</span>
+        </div>
+        <div class="exp-role">QA Test Manager / SDET</div>
+        <div class="exp-project">PROJECT: IRA Service – Individual Retirement Account Savings | JIRA</div>
+        <ul class="exp-bullets">
+          <li>Managed end-to-end QA lifecycle for IRA transfer and savings product suite, overseeing test planning, resource allocation, and release oversight.</li>
+          <li>Built <span class="exp-highlight">Selenium WebDriver + TestNG automation framework</span> with BDD (Cucumber) practices for sustainable test coverage.</li>
+          <li>Performed GoLang-based API automation and microservices validation with Ginkgo and Gomega frameworks.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-company">StateAuto Insurance</div>
+          <span class="exp-date">FEB 2019 – FEB 2020</span>
+        </div>
+        <div class="exp-role">QA Test Manager / SDET</div>
+        <div class="exp-project">PROJECT: Umbrella Policy – Underwriting Transformation | JIRA</div>
+        <ul class="exp-bullets">
+          <li>Led QA for underwriting transformation initiative; designed test plans for ETL pipeline validation across complex insurance workflows.</li>
+          <li>Managed cloud transformation testing for migration from <span class="exp-highlight">AS400/Mainframe to modern cloud solutions</span>.</li>
+          <li>Wrote complex SQL queries for data validation across Oracle, MS SQL Server, and AWS Redshift — no developer dependency.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div class="exp-company">HSBC</div>
+          <span class="exp-date">JAN 2016 – DEC 2017</span>
+        </div>
+        <div class="exp-role">Senior QA Test Engineer</div>
+        <div class="exp-project">PROJECT: BDAAS – Big Data As A Service | HP Quality Center</div>
+        <ul class="exp-bullets">
+          <li>Executed end-to-end functional, regression, smoke, and integration testing for a metadata-driven, automated data engineering framework.</li>
+          <li>Developed robust <span class="exp-highlight">Page Object Model automation</span> using Selenium WebDriver, Java, TestNG, and Maven with Jenkins CI integration.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECH SKILLS -->
+<section id="skills" class="tech-bg">
+  <div class="section-inner">
+    <span class="section-label">// 03 — TECH STACK</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-divider"></div>
+    <div class="tech-cats">
+      <div class="tech-cat reveal">
+        <div class="tech-cat-title">AI &amp; Automation Tools</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Playwright (TS/C#)</span>
+          <span class="tech-tag">Selenium WebDriver</span>
+          <span class="tech-tag">GitHub Copilot</span>
+          <span class="tech-tag">TOSCA AS1/AS2</span>
+          <span class="tech-tag">Appium</span>
+          <span class="tech-tag">Applitools</span>
+          <span class="tech-tag">Protractor</span>
+        </div>
+      </div>
+      <div class="tech-cat reveal" style="transition-delay:0.1s">
+        <div class="tech-cat-title">Languages</div>
+        <div class="tech-tags">
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Java</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">GoLang</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">SQL</span>
+        </div>
+      </div>
+      <div class="tech-cat reveal" style="transition-delay:0.2s">
+        <div class="tech-cat-title">CI/CD &amp; DevOps</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Jenkins</span>
+          <span class="tech-tag">GitHub Actions</span>
+          <span class="tech-tag">Azure DevOps</span>
+          <span class="tech-tag">AWS CodePipeline</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Terraform</span>
+          <span class="tech-tag">Maven</span>
+        </div>
+      </div>
+      <div class="tech-cat reveal" style="transition-delay:0.3s">
+        <div class="tech-cat-title">Cloud &amp; Databases</div>
+        <div class="tech-tags">
+          <span class="tech-tag">AWS Lambda</span>
+          <span class="tech-tag">AWS RDS</span>
+          <span class="tech-tag">DynamoDB</span>
+          <span class="tech-tag">Azure</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Oracle</span>
+          <span class="tech-tag">MS SQL Server</span>
+        </div>
+      </div>
+      <div class="tech-cat reveal" style="transition-delay:0.4s">
+        <div class="tech-cat-title">Performance Testing</div>
+        <div class="tech-tags">
+          <span class="tech-tag">JMeter</span>
+          <span class="tech-tag">NeoLoad</span>
+          <span class="tech-tag">K6</span>
+          <span class="tech-tag">LoadRunner</span>
+        </div>
+      </div>
+      <div class="tech-cat reveal" style="transition-delay:0.5s">
+        <div class="tech-cat-title">Test Management</div>
+        <div class="tech-tags">
+          <span class="tech-tag">Azure ADO</span>
+          <span class="tech-tag">HP ALM</span>
+          <span class="tech-tag">JIRA</span>
+          <span class="tech-tag">qTest</span>
+          <span class="tech-tag">Bugzilla</span>
+          <span class="tech-tag">TFS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI EXPERTISE -->
+<section id="ai">
+  <div class="section-inner">
+    <span class="section-label">// 04 — AI INTELLIGENCE</span>
+    <h2 class="section-title">AI Expertise</h2>
+    <div class="section-divider"></div>
+    <div class="ai-grid">
+      <div class="ai-card reveal">
+        <div class="ai-card-icon">🤖</div>
+        <h3>Playwright + TypeScript</h3>
+        <p>Architected cross-browser frameworks supporting Chromium, Firefox, and WebKit. Leveraged network interception to mock APIs, simulate error conditions, and validate financial-grade session handling.</p>
+      </div>
+      <div class="ai-card reveal" style="transition-delay:0.1s">
+        <div class="ai-card-icon">💡</div>
+        <h3>GitHub Copilot Integration</h3>
+        <p>Integrated GitHub Copilot to generate test case suggestions, boilerplate code, and edge-case scenarios — accelerating test script delivery by ~30% and improving team-wide code quality.</p>
+      </div>
+      <div class="ai-card reveal" style="transition-delay:0.2s">
+        <div class="ai-card-icon">🧬</div>
+        <h3>Generative AI &amp; Model Testing</h3>
+        <p>Designed automated scripts for generative AI applications, identifying output discrepancies. Established performance benchmarks for evaluating accuracy, relevance, and creativity of AI-generated outputs.</p>
+      </div>
+      <div class="ai-card reveal" style="transition-delay:0.3s">
+        <div class="ai-card-icon">⚖️</div>
+        <h3>Ethical AI Testing</h3>
+        <p>Championed bias detection, fairness evaluation, and compliance with financial industry ethical standards. Translated AI model behaviors into comprehensive test coverage strategies.</p>
+      </div>
+      <div class="ai-card reveal" style="transition-delay:0.4s">
+        <div class="ai-card-icon">☁️</div>
+        <h3>AWS Cloud-Native Testing</h3>
+        <p>Oversaw test coverage for AWS Lambda, Amazon RDS, and DynamoDB environments. Built AWS CodePipeline and CodeBuild integrations for continuous AI application validation.</p>
+      </div>
+      <div class="ai-card reveal" style="transition-delay:0.5s">
+        <div class="ai-card-icon">🔒</div>
+        <h3>Security &amp; Compliance Testing</h3>
+        <p>Led testing of MFA/SSO/OAuth flows, SMS identity verification, PII data handling, and regulatory compliance workflows across financial services and insurance domains.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section style="padding: 4rem 2rem;" class="exp-bg">
+  <div class="section-inner">
+    <span class="section-label">// 05 — ACADEMIC LOG</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-divider"></div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-deg">Master of Information Technology</div>
+        <div class="edu-uni">Kuvempu University</div>
+        <div class="edu-year">2009</div>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:0.1s">
+        <div class="edu-deg">Bachelor of Science (B.Sc.)</div>
+        <div class="edu-uni">Andhra University</div>
+        <div class="edu-year">2001</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-bg">
+  <div class="section-inner">
+    <span class="section-label">// 06 — ESTABLISH CONNECTION</span>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Open to senior QA leadership opportunities in fintech, banking, insurance, and enterprise technology. Specialized in AI-augmented testing, Playwright automation, and building high-performing quality engineering teams.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <div style="font-size:0.75rem; color: var(--silver-dark); margin-bottom: 2px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;">EMAIL</div>
+              <a href="mailto:gnaneemummareddy3@gmail.com">gnaneemummareddy3@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div style="font-size:0.75rem; color: var(--silver-dark); margin-bottom: 2px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;">PHONE</div>
+              <span>+1 517-505-4073</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">🔗</div>
+            <div>
+              <div style="font-size:0.75rem; color: var(--silver-dark); margin-bottom: 2px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;">LINKEDIN</div>
+              <a href="https://linkedin.com/in/gnanee-k-48b07b251" target="_blank">linkedin.com/in/gnanee-k-48b07b251</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div style="font-size:0.75rem; color: var(--silver-dark); margin-bottom: 2px; font-family: 'Share Tech Mono', monospace; letter-spacing: 0.1em;">LOCATION</div>
+              <span>Prospect Heights, IL 60070</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-card reveal" style="transition-delay:0.15s">
+        <div class="form-group">
+          <label>// Your Name</label>
+          <input type="text" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>// Email Address</label>
+          <input type="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label>// Message</label>
+          <textarea placeholder="Write your message..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%" onclick="alert('Message transmission initiated! Gnaneswari will respond shortly.')">TRANSMIT MESSAGE</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div>GNANESWARI KAKI // QA TEST MANAGER &amp; AI AUTOMATION LEADER // PROSPECT HEIGHTS, IL</div>
+  <div style="margin-top:0.5rem; color: rgba(100,140,180,0.5)">Designed with precision. Built for excellence.</div>
+</footer>
+
+<script>
+// ====== CIRCUIT BOARD ANIMATION ======
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+
+let W, H, nodes = [], pulses = [];
+const NODE_COUNT = 60;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initNodes() {
+  nodes = [];
+  for (let i = 0; i < NODE_COUNT; i++) {
+    nodes.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 2.5 + 1,
+      blink: Math.random(),
+      blinkSpeed: 0.005 + Math.random() * 0.015
+    });
+  }
+}
+
+function drawCircuit() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Deep space bg gradient
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#010d1e');
+  bg.addColorStop(0.5, '#020b18');
+  bg.addColorStop(1, '#010a15');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 160) {
+        const alpha = (1 - dist / 160) * 0.18;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `rgba(0, 140, 220, ${alpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    n.blink += n.blinkSpeed;
+    const opacity = 0.3 + 0.7 * Math.abs(Math.sin(n.blink));
+
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 180, 255, ${opacity})`;
+    ctx.fill();
+
+    if (n.r > 2) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(0, 180, 255, ${opacity * 0.25})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  });
+
+  // Pulses
+  for (let i = pulses.length - 1; i >= 0; i--) {
+    const p = pulses[i];
+    p.progress += 0.015;
+    if (p.progress >= 1) { pulses.splice(i, 1); continue; }
+    const x = p.x1 + (p.x2 - p.x1) * p.progress;
+    const y = p.y1 + (p.y2 - p.y1) * p.progress;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 220, 255, ${1 - p.progress})`;
+    ctx.fill();
+  }
+
+  // Add new pulses
+  if (Math.random() < 0.07 && nodes.length > 1) {
+    const a = nodes[Math.floor(Math.random() * nodes.length)];
+    const b = nodes[Math.floor(Math.random() * nodes.length)];
+    const dx = a.x - b.x; const dy = a.y - b.y;
+    if (Math.sqrt(dx*dx + dy*dy) < 160) {
+      pulses.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, progress: 0 });
+    }
+  }
+
+  requestAnimationFrame(drawCircuit);
+}
+
+resize();
+initNodes();
+drawCircuit();
+window.addEventListener('resize', () => { resize(); initNodes(); });
+
+// ====== GLITTER DOTS ======
+const gc = document.getElementById('glitter-container');
+for (let i = 0; i < 80; i++) {
+  const d = document.createElement('div');
+  d.className = 'glitter-dot';
+  const size = Math.random() * 3 + 1;
+  d.style.cssText = `
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    width: ${size}px;
+    height: ${size}px;
+    --dur: ${2 + Math.random() * 4}s;
+    --delay: ${-Math.random() * 5}s;
+  `;
+  gc.appendChild(d);
+}
+
+// ====== SCROLL REVEAL ======
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
